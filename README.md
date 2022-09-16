@@ -2,11 +2,6 @@
 
 Enhanced workflow in neovim
 
-
-## Shema
-
-![Shema_loop](shema/F_seashell.svg)
-
 ## ToDo
 
 - Build command (use telescope to sort possible executable, options, variables)
@@ -14,3 +9,7 @@ Enhanced workflow in neovim
     - allowing for search in buffer
     - the name of the files is a concatenation of the hash of the file and a timestamp
 - create a registers that store variables from previous output (these variables should be modifiable)
+
+## Shema
+
+![Shema_loop](shema/F_seashell.svg)
