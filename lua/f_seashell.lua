@@ -28,11 +28,13 @@ end
 
 
 --[[ take the input of a command ]]
-function command_prompt()
+local function command_prompt()
     vim.ui.input({ prompt = 'enter new command : ' }, inject_command_in_new_buff)
     return data
 end
 
-print(os.date())
+FSeaShell = {}
+FSeaShell.command_prompt = command_prompt
+vim.api.nvim_create_user_command("FSeaShell", FSeaShell.command_prompt, {})
 
-command_prompt()
+return FSeaShell
