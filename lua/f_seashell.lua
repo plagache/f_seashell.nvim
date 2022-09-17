@@ -1,12 +1,11 @@
-print("f_seashell is now loaded")
-
 -- module declaration
 local FSeaShell = {}
 FSeaShell.opts = {}
 
 -- get filename for new command
 local function get_filename(command)
-	-- add a hash of command at the end of filename TODO
+
+	-- TODO add a hash of command at the end of filename
     local file_name = os.date() -- .. command
 
 	-- add default_path if one is set
@@ -26,7 +25,6 @@ local function inject_command_in_new_buff(input)
     local buf_nbr = vim.api.nvim_get_current_buf()
 
     --[[ inject output command to this attached bufnr ]]
-
     vim.fn.jobstart(input, {
         stdout_buffered = true,
         on_stdout = function(_, data)
@@ -48,19 +46,40 @@ function FSeaShell.command_prompt()
     return data
 end
 
+local function completion(_, line)
+	local l = vim.split(line, "%s+")
+	local n = #l - 2
+	print(l, n)
+
+	if n == 0 then
+		--expand modulename
+	end
+
+	if n == 1 then
+		--expand function
+	end
+	return "HELLO"
+end
+
 -- setup function to override default options
 function FSeaShell.setup(opts)
 	opts = opts or {}
+
 	if opts.default_path then
 		FSeaShell.opts.default_path = opts.default_path
 	else
 		FSeaShell.opts.default_path = ""
 	end
 
+	
 	-- set default user command
 	-- last param may be used to create completion for commands see
 	-- https://github.com/nvim-telescope/telescope.nvim/blob/master/plugin/telescope.lua#L108
-	vim.api.nvim_create_user_command("FSeaShell", FSeaShell.command_prompt, {})
+	command_options = {
+		-- nargs = "*",
+		-- complete = completion
+	}
+	vim.api.nvim_create_user_command("FSeaShell", FSeaShell.command_prompt, command_options)
 end
 
 return FSeaShell
