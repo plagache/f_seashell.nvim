@@ -52,7 +52,7 @@ end
 function FSeaShell.setup(opts)
 	opts = opts or {}
 	if opts.default_path then
-		FSeaShell.opts.default_path = "~/.tmp/"
+		FSeaShell.opts.default_path = opts.default_path
 	else
 		FSeaShell.opts.default_path = ""
 	end
