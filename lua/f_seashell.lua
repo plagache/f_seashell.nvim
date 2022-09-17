@@ -21,7 +21,7 @@ local function inject_command_in_new_buff(input)
 
     --[[ open file and get bufnr ]]
 
-    local new_file_command = "vnew" .. get_filename(input)
+    local new_file_command = "vnew " .. get_filename(input)
     vim.cmd(new_file_command)
     local buf_nbr = vim.api.nvim_get_current_buf()
 
