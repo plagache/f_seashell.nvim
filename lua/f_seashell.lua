@@ -56,11 +56,11 @@ function FSeaShell.setup(opts)
 	else
 		FSeaShell.opts.default_path = ""
 	end
-end
 
--- set default user command
--- last param may be used to create completion for commands see
--- https://github.com/nvim-telescope/telescope.nvim/blob/master/plugin/telescope.lua#L108
-vim.api.nvim_create_user_command("FSeaShell", FSeaShell.command_prompt, {})
+	-- set default user command
+	-- last param may be used to create completion for commands see
+	-- https://github.com/nvim-telescope/telescope.nvim/blob/master/plugin/telescope.lua#L108
+	vim.api.nvim_create_user_command("FSeaShell", FSeaShell.command_prompt, {})
+end
 
 return FSeaShell
