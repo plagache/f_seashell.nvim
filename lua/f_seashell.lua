@@ -29,8 +29,7 @@ local function inject_command_in_new_buff(input)
         stdout_buffered = true,
         on_stdout = function(_, data)
             if data then
-				local lines = {"command :", "##BEGIN##", input, "##END##", "Output :", "##BEGIN##", data, "##END##"}
-                vim.api.nvim_buf_set_lines(buf_nbr, 0, -1, false, lines)
+                vim.api.nvim_buf_set_lines(buf_nbr, 0, -1, false, {"command :", "##BEGIN##", input, "##END##", "Output :", "##BEGIN##", data, "##END##"})
                 local write_command = "write " .. vim.api.nvim_buf_get_name(buf_nbr)
                 vim.cmd(write_command)
             end
