@@ -16,6 +16,13 @@ local function get_filename(command)
 	return file_name
 end
 
+function table_concat(t1,t2)
+	for i=1,#t2 do
+		t1[#t1+1] = t2[i]  --corrected bug. if t1[#t1+i] is used, indices will be skipped
+	end
+	return t1
+end
+
 local function inject_command_in_new_buff(input)
 
     --[[ open file and get bufnr ]]
@@ -29,7 +36,10 @@ local function inject_command_in_new_buff(input)
         stdout_buffered = true,
         on_stdout = function(_, data)
             if data then
-                vim.api.nvim_buf_set_lines(buf_nbr, 0, -1, false, {"command :", "##BEGIN##", input, "##END##", "Output :", "##BEGIN##", data, "##END##"})
+				local lines = {"command :", "##BEGIN##", input, "##END##", "Output :", "##BEGIN##"}
+				lines = table_concat(lines, data)
+				lines = table_concat(lines, {"##END##"})
+                vim.api.nvim_buf_set_lines(buf_nbr, 0, -1, false, lines)
                 local write_command = "write " .. vim.api.nvim_buf_get_name(buf_nbr)
                 vim.cmd(write_command)
             end
